@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smart Excuse & Letter Generator{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/generators.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="light-mode">
+    <div class="glass-background"></div>
+
+    <nav class="navbar glass-panel">
+        <div class="logo">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>SmartGen</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Home</a>
+            </li>
+            <li><a href="{{ url_for('excuse_generator') }}"
+                    class="{% if request.endpoint == 'excuse_generator' %}active{% endif %}">Excuses</a></li>
+            <li><a href="{{ url_for('letter_generator') }}"
+                    class="{% if request.endpoint == 'letter_generator' %}active{% endif %}">Letters</a></li>
+            <li><a href="{{ url_for('templates_page') }}"
+                    class="{% if request.endpoint == 'templates_page' %}active{% endif %}">Templates</a></li>
+            <li><a href="{{ url_for('history_page') }}"
+                    class="{% if request.endpoint == 'history_page' %}active{% endif %}">History</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button id="theme-toggle" class="btn-icon"><i class="fa-solid fa-moon"></i></button>
+            <button id="auth-btn" class="btn-primary">Sign In</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="glass-panel">
+        <p>&copy; 2026 Smart Excuse & Letter Generator. Designed with <i class="fa-solid fa-heart"
+                style="color:var(--danger)"></i>.</p>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content glass-panel" id="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Sign In</h2>
+            <form id="auth-form">
+                <div class="input-group" id="name-group" style="display:none;">
+                    <label for="auth-name">Name</label>
+                    <input type="text" id="auth-name" placeholder="John Doe">
+                </div>
+                <div class="input-group">
+                    <label for="auth-email">Email</label>
+                    <input type="email" id="auth-email" required placeholder="name@example.com">
+                </div>
+                <div class="input-group">
+                    <label for="auth-password">Password</label>
+                    <input type="password" id="auth-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-primary w-100" id="auth-submit">Login</button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="#" id="toggle-auth-mode">Sign Up</a></p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

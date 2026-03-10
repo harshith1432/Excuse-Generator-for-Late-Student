@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Letter Generator - SmartGen{% endblock %}
+
+{% block content %}
+<div class="generator-layout fade-in">
+    <!-- Input Form -->
+    <div class="form-panel glass-panel">
+        <h2><i class="fa-solid fa-file-signature text-primary"></i> Professional Letter Generator</h2>
+        <p class="text-muted mb-4">Generate formatted, professional letters in seconds.</p>
+
+        <form id="letter-form">
+            <div class="input-group">
+                <label for="letter_type">Letter Type</label>
+                <select id="letter_type" required>
+                    <option value="Leave letter">Leave letter</option>
+                    <option value="Sick leave">Sick leave</option>
+                    <option value="Apology letter">Apology letter</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="recipient_name">Recipient Name/Title</label>
+                <input type="text" id="recipient_name" required placeholder="E.g., Dr. Smith, HR Manager">
+            </div>
+
+            <div class="input-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" required placeholder="E.g., Application for Sick Leave">
+            </div>
+
+            <div class="input-group">
+                <label for="reason">Detailed Reason</label>
+                <textarea id="reason" rows="3" required
+                    placeholder="Explain why you are writing this letter"></textarea>
+            </div>
+
+            <div class="generator-layout" style="gap:1rem; min-height:auto; grid-template-columns: 1fr 1fr; padding:0;">
+                <div class="input-group">
+                    <label for="user_name">Your Name</label>
+                    <input type="text" id="user_name" required>
+                </div>
+                <div class="input-group">
+                    <label for="class_dept">Class/Department</label>
+                    <input type="text" id="class_dept" required>
+                </div>
+            </div>
+
+            <div class="generator-layout" style="gap:1rem; min-height:auto; grid-template-columns: 1fr 1fr; padding:0;">
+                <div class="input-group">
+                    <label for="contact">Contact No.</label>
+                    <input type="text" id="contact" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="college_company">College/Company Name</label>
+                <input type="text" id="college_company" required>
+            </div>
+
+            <button type="submit" class="btn-primary w-100 btn-large">
+                <i class="fa-solid fa-pen-nib"></i> Generate Letter
+            </button>
+        </form>
+    </div>
+
+    <!-- Output Result -->
+    <div class="result-panel glass-panel">
+        <div class="result-header">
+            <h3>Format Preview</h3>
+        </div>
+
+        <div id="loader" class="loader"></div>
+
+        <div id="result-content" style="display: none;">
+            <div class="generated-content-box" id="letter-content">
+                <!-- Letter will be populated here -->
+            </div>
+
+            <div class="result-actions" style="margin-top: 1.5rem;">
+                <button id="copy-btn" class="btn-secondary"><i class="fa-regular fa-copy"></i> Copy Text</button>
+                <button id="export-pdf" class="btn-secondary"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+                <button id="export-docx" class="btn-secondary"><i class="fa-solid fa-file-word"></i> Word</button>
+            </div>
+        </div>
+
+        <div id="empty-state" class="empty-state"
+            style="text-align: center; color: var(--text-muted); margin-top: 8rem;">
+            <i class="fa-solid fa-envelope-open-text fa-3x" style="opacity: 0.2; margin-bottom: 1rem;"></i>
+            <p>Your finished letter will appear here.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/letters.js') }}"></script>
+{% endblock %}

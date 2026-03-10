@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Smart Excuse & Letter Generator{% endblock %}
+
+{% block content %}
+<div class="hero-section fade-in">
+    <div class="hero-content">
+        <h1 class="gradient-text">Instant Professional Excuses & Letters</h1>
+        <p class="subtitle">Generate believable excuses and perfectly formatted letters in seconds with our smart AI
+            engine.</p>
+
+        <div class="hero-buttons">
+            <a href="{{ url_for('excuse_generator') }}" class="btn-primary btn-large">
+                <i class="fa-solid fa-bolt"></i> Generate Excuse
+            </a>
+            <a href="{{ url_for('letter_generator') }}" class="btn-secondary btn-large">
+                <i class="fa-solid fa-file-signature"></i> Write a Letter
+            </a>
+        </div>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card glass-panel">
+            <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Believability Score</h3>
+            <p>Every excuse comes with a rating to ensure it sounds convincing and natural.</p>
+        </div>
+        <div class="feature-card glass-panel">
+            <div class="feature-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h3>Smart Templates</h3>
+            <p>Access hundreds of pre-built templates for office, school, and personal use.</p>
+        </div>
+        <div class="feature-card glass-panel">
+            <div class="feature-icon"><i class="fa-solid fa-file-export"></i></div>
+            <h3>Instant Export</h3>
+            <p>Download your generated content instantly as PDF or Word documents.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

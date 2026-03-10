@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}History - SmartGen{% endblock %}
+
+{% block content %}
+<div class="fade-in" style="max-width: 800px; margin: 0 auto;">
+    <h2 class="mb-4"><i class="fa-solid fa-clock-rotate-left text-primary"></i> Your Generation History</h2>
+    <p class="text-muted mb-4">View and reuse your previously generated excuses and letters.</p>
+
+    <div id="loader" class="loader" style="display:block;"></div>
+
+    <div id="history-container" style="display:none;" class="variation-cards">
+        <!-- History items go here -->
+    </div>
+
+    <div id="empty-state" class="empty-state"
+        style="display:none; text-align: center; color: var(--text-muted); margin-top: 4rem;">
+        <i class="fa-solid fa-folder-open fa-3x" style="opacity: 0.2; margin-bottom: 1rem;"></i>
+        <p>No history found. Generate something first!</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const container = document.getElementById('history-container');
+        const loader = document.getElementById('loader');
+        const emptyState = document.getElementById('empty-state');
+
+        try {
+            const res = await fetch('/api/history/');
+            const data = await res.json();
+
+            loader.style.display = 'none';
+
+            if (res.ok && data.history && data.history.length > 0) {
+                container.style.display = 'flex';
+
+                data.history.forEach(item => {
+                    const isExcuse = item.type === 'excuse';
+                    const icon = isExcuse ? '<i class="fa-solid fa-bolt text-warning"></i>' : '<i class="fa-solid fa-file-signature text-secondary"></i>';
+                    const date = new Date(item.created_at).toLocaleString();
+
+                    const card = document.createElement('div');
+                    card.className = 'variation-card';
+                    card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.9rem;" class="text-muted">
+                        <span>${icon} <span style="text-transform:capitalize;">${item.type}</span></span>
+                        <span>${date}</span>
+                    </div>
+                    <div style="white-space:pre-wrap; font-family:var(--font-main);">${item.content}</div>
+                `;
+
+                    card.addEventListener('click', () => {
+                        navigator.clipboard.writeText(item.content).then(() => {
+                            alert('Copied to clipboard!');
+                        });
+                    });
+
+                    container.appendChild(card);
+                });
+            } else {
+                emptyState.style.display = 'block';
+            }
+        } catch (e) {
+            console.error(e);
+            loader.style.display = 'none';
+            emptyState.style.display = 'block';
+        }
+    });
+</script>
+{% endblock %}

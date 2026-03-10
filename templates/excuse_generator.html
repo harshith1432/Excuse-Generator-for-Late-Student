@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Excuse Generator - SmartGen{% endblock %}
+
+{% block content %}
+<div class="generator-layout fade-in">
+    <!-- Input Form -->
+    <div class="form-panel glass-panel">
+        <h2><i class="fa-solid fa-bolt text-primary"></i> Excuse Generator</h2>
+        <p class="text-muted mb-4">Fill in the details for a believable excuse instantly.</p>
+
+        <form id="excuse-form">
+            <div class="input-group">
+                <label for="situation">Situation</label>
+                <select id="situation" required>
+                    <option value="" disabled selected>Select a situation...</option>
+                    <option value="Late to class">Late to class</option>
+                    <option value="Missed assignment">Missed assignment</option>
+                    <option value="Late submission">Late submission</option>
+                    <option value="Skipped meeting">Skipped meeting</option>
+                    <option value="Late to office">Late to office</option>
+                    <option value="Internet failure during online class">Internet failure</option>
+                    <option value="Transport issues">Transport issues</option>
+                    <option value="Family emergency">Family emergency</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="delay_time">Delay Time (Optional)</label>
+                <input type="text" id="delay_time" placeholder="e.g., 30 minutes, 1 day">
+            </div>
+
+            <div class="input-group">
+                <label for="reason_category">Reason Category (Optional)</label>
+                <select id="reason_category">
+                    <option value="General">General</option>
+                    <option value="Weather conditions">Weather conditions</option>
+                    <option value="Personal problems">Personal problems</option>
+                    <option value="Technical issues">Technical issues</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary w-100 btn-large">
+                Generate Excuse <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- Output Result -->
+    <div class="result-panel glass-panel">
+        <div class="result-header">
+            <h3>Generated Variations</h3>
+            <div id="believability-badge" style="display:none;"></div>
+        </div>
+
+        <div id="loader" class="loader"></div>
+
+        <div id="result-content" style="display: none;">
+            <div class="variation-cards" id="variations-container">
+                <!-- Variations will be populated here -->
+            </div>
+
+            <div class="result-actions" style="margin-top: 1.5rem;">
+                <button id="copy-btn" class="btn-secondary"><i class="fa-regular fa-copy"></i> Copy Selected</button>
+                <button id="export-pdf" class="btn-secondary"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+            </div>
+        </div>
+
+        <div id="empty-state" class="empty-state"
+            style="text-align: center; color: var(--text-muted); margin-top: 4rem;">
+            <i class="fa-solid fa-magic fa-3x" style="opacity: 0.2; margin-bottom: 1rem;"></i>
+            <p>Your generated excuses will appear here.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/excuses.js') }}"></script>
+{% endblock %}

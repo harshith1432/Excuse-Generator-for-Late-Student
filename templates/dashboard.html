@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - SmartGen{% endblock %}
+
+{% block content %}
+<div class="fade-in" style="max-width: 1000px; margin: 0 auto;">
+    <div
+        style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--glass-border); padding-bottom:1rem; margin-bottom:2rem;">
+        <div>
+            <h2><i class="fa-solid fa-table-columns text-primary"></i> Dashboard</h2>
+            <p class="text-muted" id="welcome-msg">Welcome to your dashboard.</p>
+        </div>
+    </div>
+
+    <div class="features-grid">
+        <a href="{{ url_for('excuse_generator') }}" style="text-decoration:none; color:inherit;">
+            <div class="feature-card glass-panel text-center">
+                <i class="fa-solid fa-bolt fa-3x text-primary" style="margin-bottom:1rem;"></i>
+                <h3>New Excuse</h3>
+                <p class="text-muted">Instant generation</p>
+            </div>
+        </a>
+        <a href="{{ url_for('letter_generator') }}" style="text-decoration:none; color:inherit;">
+            <div class="feature-card glass-panel text-center">
+                <i class="fa-solid fa-file-signature fa-3x text-secondary" style="margin-bottom:1rem;"></i>
+                <h3>New Letter</h3>
+                <p class="text-muted">Professional templates</p>
+            </div>
+        </a>
+        <a href="{{ url_for('history_page') }}" style="text-decoration:none; color:inherit;">
+            <div class="feature-card glass-panel text-center">
+                <i class="fa-solid fa-clock-rotate-left fa-3x text-warning" style="margin-bottom:1rem;"></i>
+                <h3>History</h3>
+                <p class="text-muted">View past generations</p>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+        document.getElementById('welcome-msg').innerText = `Welcome back, ${user.name}!`;
+    } else {
+        document.getElementById('welcome-msg').innerText = 'Please log in to track your history and details.';
+    }
+</script>
+{% endblock %}
