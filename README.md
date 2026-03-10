@@ -1,4 +1,4 @@
-# Smart Excuse & Letter Generator
+# Excuse-Generator-for-Late-Student
 
 A high-performance modern web application designed to instantly generate believable excuses and professional letters. Built with a Flask backend, PostgreSQL database on Neon, and a responsive HTML5/CSS3/JS frontend featuring a glassmorphism design.
 
