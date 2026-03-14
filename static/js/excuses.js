@@ -19,8 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
         badge.style.display = 'none';
         loader.style.display = 'block';
 
+        const situationSelect = document.getElementById('situation-select');
+        const situationInput = document.getElementById('situation');
+        
+        let situation = situationInput.value;
+        if (!situation && situationSelect.value) {
+            situation = situationSelect.value;
+        }
+
         const payload = {
-            situation: document.getElementById('situation').value,
+            situation: situation,
             delay_time: document.getElementById('delay_time').value,
             reason_category: document.getElementById('reason_category').value
         };
@@ -46,6 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
             emptyState.style.display = 'block';
         }
     });
+
+    const situationSelect = document.getElementById('situation-select');
+    const situationInput = document.getElementById('situation');
+    if (situationSelect && situationInput) {
+        situationSelect.addEventListener('change', () => {
+            situationInput.value = situationSelect.value;
+        });
+    }
 
     function renderVariations(variations, score) {
         variationsContainer.innerHTML = '';

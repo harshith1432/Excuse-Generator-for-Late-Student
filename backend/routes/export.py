@@ -1,6 +1,6 @@
 import os
 import tempfile
-import pdfkit
+from fpdf import FPDF
 from docx import Document
 from flask import Blueprint, request, send_file, jsonify
 
@@ -13,19 +13,30 @@ def export_pdf():
     if not content:
         return jsonify({'error': 'No content provided'}), 400
 
-    html_content = f"<html><body><pre style='font-family: Arial, sans-serif; white-space: pre-wrap;'>{content}</pre></body></html>"
-    
     try:
-        # Create a temporary file to save the PDF
+        # Create PDF using fpdf2
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_auto_page_break(auto=True, margin=15)
+        
+        # Use a standard font. Note: fpdf2 handles UTF-8 better but we use a core font for simplicity 
+        # unless custom fonts are required. Latin-1 is default for core fonts.
+        pdf.set_font("Arial", size=12)
+        
+        # Split content by lines and write
+        # We replace some common non-latin1 chars if any appear from AI
+        safe_content = content.encode('latin-1', 'replace').decode('latin-1')
+        
+        pdf.multi_cell(0, 10, txt=safe_content)
+        
         fd, temp_path = tempfile.mkstemp(suffix='.pdf')
         os.close(fd)
         
-        # wkhtmltopdf might require path configuration on Windows. Assuming it is in PATH
-        # if pdfkit fails due to missing executable, the user will need to install wkhtmltopdf and add to PATH.
-        pdfkit.from_string(html_content, temp_path)
+        pdf.output(temp_path)
         
-        return send_file(temp_path, as_attachment=True, download_name='document.pdf', mimetype='application/pdf')
+        return send_file(temp_path, as_attachment=True, download_name='letter.pdf', mimetype='application/pdf')
     except Exception as e:
+        print(f"PDF Export Error: {e}")
         return jsonify({'error': str(e)}), 500
 
 @export_bp.route('/docx', methods=['POST'])

@@ -47,6 +47,10 @@ def create_app():
     def history_page():
         return render_template('history.html')
         
+    @app.route('/smart-reply')
+    def smart_reply_page():
+        return render_template('smart_reply.html')
+
     @app.route('/templates')
     def templates_page():
         return render_template('browse_templates.html')

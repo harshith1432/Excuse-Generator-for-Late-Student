@@ -11,12 +11,9 @@
 
         <form id="letter-form">
             <div class="input-group">
-                <label for="letter_type">Letter Type</label>
-                <select id="letter_type" required>
-                    <option value="Leave letter">Leave letter</option>
-                    <option value="Sick leave">Sick leave</option>
-                    <option value="Apology letter">Apology letter</option>
-                </select>
+                <label for="letter_type">Type of Letter</label>
+                <input type="text" id="letter_type" required placeholder="e.g., Leave Application, Recommendation Letter, Complaint">
+                <small class="text-muted">AI can generate any type of professional letter.</small>
             </div>
 
             <div class="input-group">

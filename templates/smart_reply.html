@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Smart Reply - SmartGen{% endblock %}
+
+{% block content %}
+<div class="generator-layout fade-in">
+    <!-- Input Form -->
+    <div class="form-panel glass-panel">
+        <h2><i class="fa-solid fa-reply text-primary"></i> Smart AI Reply</h2>
+        <p class="text-muted mb-4">Generate intelligent, context-aware replies to any message or email.</p>
+
+        <form id="reply-form">
+            <div class="input-group">
+                <label for="incoming_message">Incoming Message</label>
+                <textarea id="incoming_message" rows="5" required
+                    placeholder="Paste the message you received here..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="tone">Tone of Reply</label>
+                <select id="tone">
+                    <option value="Professional">Professional</option>
+                    <option value="Friendly">Friendly</option>
+                    <option value="Apologetic">Apologetic</option>
+                    <option value="Formal">Formal</option>
+                    <option value="Concise">Concise</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary w-100 btn-large">
+                <i class="fa-solid fa-wand-sparkles"></i> Generate AI Reply
+            </button>
+        </form>
+    </div>
+
+    <!-- Output Result -->
+    <div class="result-panel glass-panel">
+        <div class="result-header">
+            <h3>AI Suggested Reply</h3>
+        </div>
+
+        <div id="loader" class="loader"></div>
+
+        <div id="result-content" style="display: none;">
+            <div class="generated-content-box" id="reply-content">
+                <!-- Reply will be populated here -->
+            </div>
+
+            <div class="result-actions" style="margin-top: 1.5rem;">
+                <button id="copy-btn" class="btn-secondary"><i class="fa-regular fa-copy"></i> Copy Reply</button>
+            </div>
+        </div>
+
+        <div id="empty-state" class="empty-state"
+            style="text-align: center; color: var(--text-muted); margin-top: 8rem;">
+            <i class="fa-solid fa-comment-dots fa-3x" style="opacity: 0.2; margin-bottom: 1rem;"></i>
+            <p>The AI-generated reply will appear here.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/smart_reply.js') }}"></script>
+{% endblock %}

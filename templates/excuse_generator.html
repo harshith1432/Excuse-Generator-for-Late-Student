@@ -11,17 +11,16 @@
 
         <form id="excuse-form">
             <div class="input-group">
-                <label for="situation">Situation</label>
-                <select id="situation" required>
-                    <option value="" disabled selected>Select a situation...</option>
+                <label for="situation">Describe the Situation</label>
+                <input type="text" id="situation" required placeholder="e.g., Late to class because of rain, Missed a deadline due to laptop crash">
+                <small class="text-muted">Or select a common one below:</small>
+                <select id="situation-select" class="mt-2">
+                    <option value="" disabled selected>Common situations...</option>
                     <option value="Late to class">Late to class</option>
                     <option value="Missed assignment">Missed assignment</option>
                     <option value="Late submission">Late submission</option>
                     <option value="Skipped meeting">Skipped meeting</option>
-                    <option value="Late to office">Late to office</option>
-                    <option value="Internet failure during online class">Internet failure</option>
-                    <option value="Transport issues">Transport issues</option>
-                    <option value="Family emergency">Family emergency</option>
+                    <option value="Internet failure">Internet failure</option>
                 </select>
             </div>
 

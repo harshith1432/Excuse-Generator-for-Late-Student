@@ -26,6 +26,8 @@
                     class="{% if request.endpoint == 'excuse_generator' %}active{% endif %}">Excuses</a></li>
             <li><a href="{{ url_for('letter_generator') }}"
                     class="{% if request.endpoint == 'letter_generator' %}active{% endif %}">Letters</a></li>
+            <li><a href="{{ url_for('smart_reply_page') }}"
+                    class="{% if request.endpoint == 'smart_reply_page' %}active{% endif %}">Smart Reply</a></li>
             <li><a href="{{ url_for('templates_page') }}"
                     class="{% if request.endpoint == 'templates_page' %}active{% endif %}">Templates</a></li>
             <li><a href="{{ url_for('history_page') }}"
